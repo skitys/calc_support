@@ -1,0 +1,2 @@
+# getDeviceType
+getDeviceType
