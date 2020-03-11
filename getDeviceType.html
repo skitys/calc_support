@@ -1,0 +1,19 @@
+<div>
+<a href="#" onclick="clickGet(event)">UA取得</a>
+</div>
+
+<script>
+   function Ua(){
+       var ua = navigator.userAgent.toLowerCase();
+       return {
+            getDevice: function(){
+            return ua.indexOf("iphone") !== -1 || ua.indexOf("android") !== -1 && ua.indexOf("mobile") !== -1? 'sp': ua.indexOf("ipad") !== -1 || ua.indexOf("android") !== -1? 'tab': 'pc';
+           }
+       }
+   }
+    function clickGet(e){
+        e.preventDefault();
+        var deviceType = new Ua();
+        console.log(deviceType.getDevice());
+   }
+</script>
