@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <style>
+            input[type=number] {
+                padding: 8px;
+                font-size: 16px;
+                display: inline-block;
+                margin-bottom: 16px;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <div>
+                <p>小数点第３位まで強制表示とする</p>
+            </div>
+            <form>
+                <select id="select" name="mySelect">
+                </select>
+                <input type="number" name="number" step="0.001" value="0.525">
+                <button type="button" id="submit" onclick="ketaAdjust()">確定する</button>
+                <div>
+                    <label>下2ケタ以外</label>
+                    <input type="number" name="result" value="" id="result" readonly>
+                    <label>下2ケタ</label>
+                    <input type="number" name="len" readonly id="len">
+                </div>
+            </form>
+        </main>
+        <script>
+            var today = new Date(),
+                year = today.getFullYear(),
+                MAXAGE = 120;
+            function fillYear(year,age){
+                var thisYear = year,
+                    startYear = thisYear - age,
+                    target = document.getElementById("select"),
+                    elm,firstElm;
+                for(var i = startYear; i <= thisYear; i++){
+                    firstElm = target.querySelector("option:first-child");
+                    elm = document.createElement("option");
+                    elm.setAttribute("value",i);
+                    elm.innerText = i;
+                    target.insertBefore(elm,firstElm);
+                }
+                target.querySelector("option:first-child").selected = true;
+            }
+            fillYear(year,MAXAGE);
+
+            function ketaAdjust(){
+                var num = document.getElementsByName("number")[0].value,
+                    result,sliced,len,
+                    str = String(num),
+                    index = str.indexOf("\."),
+                    shimo2 = "str",
+                    mae ="str";
+                if(index !== -1){
+                    // 小数点以下が存在する場合
+                    sliced = str.slice(index+1);// 小数点以下をすべて切り出し
+                    len = sliced.length;
+                    var ary = [sliced];
+                    // 指定のケタになるまで末尾に0を追加する
+                    for(var i= len; i < 3; i++){
+                        ary.push("0");
+                    }
+                    var result_keta_before = ary.join("");// 小数点以下に0を補った文字列
+                    result = str.slice(0,index+1)+result_keta_before;
+                }else{
+                    // 小数点以下無い場合 type=numberは.を消す挙動ぽいため
+                    result = str+".000";
+                }
+                shimo2 = result.slice(-2);
+                mae = result.slice(0,-2);
+                document.getElementById("result").value = mae;
+                document.getElementById("len").value = shimo2;
+            }
+            </script>
+    </body>
+</html>
