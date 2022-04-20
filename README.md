@@ -1,2 +1,2 @@
-# getDeviceType
-getDeviceType
+# calc
+試算サイト改修時に制作したJSの一部を抜粋
