@@ -15,8 +15,6 @@
                 <p>小数点第３位まで強制表示とする</p>
             </div>
             <form>
-                <select id="select" name="mySelect">
-                </select>
                 <input type="number" name="number" step="0.001" value="0.525">
                 <button type="button" id="submit" onclick="ketaAdjust()">確定する</button>
                 <div>
@@ -28,25 +26,6 @@
             </form>
         </main>
         <script>
-            var today = new Date(),
-                year = today.getFullYear(),
-                MAXAGE = 120;
-            function fillYear(year,age){
-                var thisYear = year,
-                    startYear = thisYear - age,
-                    target = document.getElementById("select"),
-                    elm,firstElm;
-                for(var i = startYear; i <= thisYear; i++){
-                    firstElm = target.querySelector("option:first-child");
-                    elm = document.createElement("option");
-                    elm.setAttribute("value",i);
-                    elm.innerText = i;
-                    target.insertBefore(elm,firstElm);
-                }
-                target.querySelector("option:first-child").selected = true;
-            }
-            fillYear(year,MAXAGE);
-
             function ketaAdjust(){
                 var num = document.getElementsByName("number")[0].value,
                     result,sliced,len,
